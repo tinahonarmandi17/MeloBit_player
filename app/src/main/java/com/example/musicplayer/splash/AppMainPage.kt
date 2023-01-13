@@ -1,13 +1,8 @@
 package com.example.musicplayer.splash
 
 import android.os.Bundle
-import android.provider.MediaStore
 import androidx.appcompat.app.AppCompatActivity
-import androidx.recyclerview.widget.GridLayoutManager
-import androidx.recyclerview.widget.RecyclerView
-import androidx.viewpager.widget.ViewPager.OnPageChangeListener
 import androidx.viewpager2.widget.ViewPager2
-import com.example.musicplayer.PlayListRecyclerAdapter
 import com.example.musicplayer.R
 import com.example.musicplayer.fragments.OfflinePlaylistFragment
 import com.example.musicplayer.fragments.OnlinePlayListFragment
@@ -21,6 +16,7 @@ class AppMainPage : AppCompatActivity() {
 
     private lateinit var tabLayout: TabLayout
     private lateinit var viewPager2: ViewPager2
+    private var localSongs : ArrayList<Song> = ArrayList()
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -29,7 +25,6 @@ class AppMainPage : AppCompatActivity() {
 
         bindViews();
         setViewPager();
-        setOfflinePlayList()
         setTabLayout()
         setTabLayoutViewPager();
 
@@ -79,49 +74,6 @@ class AppMainPage : AppCompatActivity() {
         })
     }
 
-    private fun findAllSongs(): ArrayList<Song> {
-        val selection = MediaStore.Audio.Media.IS_MUSIC + " != 0"
-
-        val projection = arrayOf(
-            MediaStore.Audio.Media._ID,
-            MediaStore.Audio.Media.ARTIST,
-            MediaStore.Audio.Media.TITLE,
-            MediaStore.Audio.Media.DATA,
-            MediaStore.Audio.Media.DISPLAY_NAME,
-            MediaStore.Audio.Media.DURATION,
-            MediaStore.Audio.Media.ALBUM
-        )
-
-        val cursor = managedQuery(
-            MediaStore.Audio.Media.EXTERNAL_CONTENT_URI,
-            projection,
-            selection,
-            null,
-            null
-        )
-
-        val songs: ArrayList<Song> = ArrayList()
-        while (cursor.moveToNext()) {
-            val song: Song = Song.Builder()
-                .id(cursor.getString(0))
-                .artist(cursor.getString(1))
-                .title(cursor.getString(2))
-                .data(cursor.getString(3))
-                .displayName(cursor.getString(4))
-                .duration(cursor.getString(5))
-                .album(cursor.getString(6))
-                .build()
-            songs.add(song)
-        }
-        return songs
-    }
-
-    private fun setOfflinePlayList() {
-        val playListRecycler: RecyclerView = findViewById(R.id.playlist);
-        playListRecycler.adapter = PlayListRecyclerAdapter(findAllSongs(), this);
-        playListRecycler.layoutManager =
-            GridLayoutManager(this, 1, GridLayoutManager.VERTICAL, false);
-    }
 
     private fun setTabLayout() {
         tabLayout = findViewById(R.id.playlist_tabl_layout)

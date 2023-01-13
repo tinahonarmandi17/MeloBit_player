@@ -1,4 +1,4 @@
-package com.example.musicplayer
+package com.example.musicplayer.recyclerAdapters
 
 import android.content.Context
 import android.content.Intent
@@ -10,13 +10,14 @@ import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.engine.DiskCacheStrategy
+import com.example.musicplayer.R
 import com.example.musicplayer.activitys.MusicPlayingActivity
 import com.example.musicplayer.mvvm.model.Song
 import com.example.musicplayer.services.MusicPlayerService
 
 
-class PlayListRecyclerAdapter(private val songs: ArrayList<Song>, private val context: Context) :
-    RecyclerView.Adapter<PlayListRecyclerAdapter.ViewHolder>() {
+class OfflinePlayListAdapter(private val songs: ArrayList<Song>, private val context: Context) :
+    RecyclerView.Adapter<OfflinePlayListAdapter.ViewHolder>() {
 
     val TAG = "songs"
 

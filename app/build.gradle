@@ -36,12 +36,7 @@ android {
     }
     sourceSets {
         main {
-            java {
-                srcDirs 'src\\main\\java', 'src\\main\\java\\2'
-            }
-            res {
-                srcDirs 'src\\main\\res', 'src\\main\\res\\2'
-            }
+
         }
     }
 }
@@ -105,6 +100,13 @@ dependencies {
     // If you want to use the GPU Filters
     implementation 'jp.co.cyberagent.android:gpuimage:2.1.0'
 
+
+
+//    Retrofit
+    implementation "com.google.code.gson:gson:2.8.7"
+    implementation "com.squareup.retrofit2:retrofit:2.9.0"
+    implementation "com.squareup.retrofit2:converter-gson:2.9.0"
+    implementation "com.squareup.okhttp3:logging-interceptor:4.5.0"
 
 
 }
