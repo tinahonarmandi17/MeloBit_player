@@ -27,7 +27,7 @@
         <service android:name=".services.MusicPlayerService" />
 
         <activity
-            android:name=".AppMainPage"
+            android:name=".splash.AppMainPage"
             android:exported="false">
             <meta-data
                 android:name="android.app.lib_name"

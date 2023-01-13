@@ -5,9 +5,8 @@ import android.content.Intent
 import android.os.Bundle
 import android.widget.Button
 import androidx.appcompat.app.AppCompatActivity
-import com.example.musicplayer.AppMainPage
 import com.example.musicplayer.R
-import com.google.android.material.snackbar.Snackbar
+import com.example.musicplayer.splash.AppMainPage
 import com.karumi.dexter.Dexter
 import com.karumi.dexter.PermissionToken
 import com.karumi.dexter.listener.PermissionDeniedResponse
@@ -51,6 +50,7 @@ companion object {
             }).check()
 
         goInsideButton.setOnClickListener {
+            startActivity(Intent(this@MainActivity, AppMainPage::class.java))
         }
 
     }
