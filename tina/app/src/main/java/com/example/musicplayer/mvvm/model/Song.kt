@@ -42,6 +42,9 @@ class Song(
             )
             this.data = uri
         }
+        fun data(data: String , isInternet : Boolean) = apply {
+            this.data = Uri.parse(data)
+        }
 
         fun displayName(displayName: String) = apply { this.displayName = displayName }
         fun duration(duration: String) = apply { this.duration = duration }

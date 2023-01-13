@@ -2,6 +2,7 @@ package com.example.musicplayer.recyclerAdapters
 
 import android.annotation.SuppressLint
 import android.app.Activity
+import android.content.Intent
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
@@ -12,9 +13,13 @@ import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.engine.DiskCacheStrategy
 import com.example.musicplayer.R
+import com.example.musicplayer.activitys.MusicPlayingActivity
 import com.example.musicplayer.api.RetrofitInstance
+import com.example.musicplayer.mvvm.model.Song
 import com.example.musicplayer.mvvm.model.latesSongs.ArtistX
 import com.example.musicplayer.mvvm.model.latesSongs.LatestSong
+import com.example.musicplayer.services.MusicPlayerService
+import com.example.musicplayer.utils.FileDownloader
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
 
@@ -30,6 +35,8 @@ class LatestSongsAdapter(
         val image : ImageView = view.findViewById(R.id.lates_songs_image)
         val name : TextView =view.findViewById(R.id.lates_songs_name)
         val artist : TextView  = view.findViewById(R.id.lates_songs_by)
+        val downloadCount : TextView = view.findViewById(R.id.lates_songs_downloads_count)
+        val latestSongsRoot : ViewGroup = view.findViewById(R.id.latest_songs_item_root)
     }
 
     init {
@@ -46,15 +53,20 @@ class LatestSongsAdapter(
     @SuppressLint("SetTextI18n")
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val image : ImageView = holder.image
-        var nameTextView : TextView = holder.name
+        val nameTextView : TextView = holder.name
         val artistTextView = holder.artist
+        val downloadCountTextView = holder.downloadCount
+        val root = holder.latestSongsRoot
 
 
+
+        // data
         val imageUri = latestSong?.results?.get(position)?.image?.cover?.url
-
         val trackTitle = latestSong?.results?.get(position)?.title
-
         val artists = latestSong?.results?.get(position)?.artists
+
+
+
 
         for ( artist : ArtistX in artists!! ) {
             if (artistTextView.text == "") {
@@ -65,7 +77,7 @@ class LatestSongsAdapter(
         }
 
         nameTextView.text =  trackTitle
-
+        downloadCountTextView.text = latestSong?.results?.get(position)?.downloadCount
 
 
         Glide
@@ -73,6 +85,13 @@ class LatestSongsAdapter(
             .load(imageUri)
             .diskCacheStrategy(DiskCacheStrategy.ALL)
             .into(image)
+
+        root.setOnClickListener {
+            FileDownloader.setInitContext(activity)
+            val downloadUri = latestSong!!.results[position].audio.high.url
+            val fileName = latestSong!!.results[position].title
+            FileDownloader.download(downloadUri,fileName)
+        }
 
     }
 

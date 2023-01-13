@@ -8,10 +8,12 @@ import androidx.appcompat.app.AppCompatActivity
 import com.example.musicplayer.R
 import com.example.musicplayer.splash.AppMainPage
 import com.karumi.dexter.Dexter
+import com.karumi.dexter.MultiplePermissionsReport
 import com.karumi.dexter.PermissionToken
 import com.karumi.dexter.listener.PermissionDeniedResponse
 import com.karumi.dexter.listener.PermissionGrantedResponse
 import com.karumi.dexter.listener.PermissionRequest
+import com.karumi.dexter.listener.multi.MultiplePermissionsListener
 import com.karumi.dexter.listener.single.PermissionListener
 
 
@@ -31,20 +33,29 @@ companion object {
 
         println("")
 
+
         Dexter.withContext(this)
-            .withPermission(android.Manifest.permission.READ_EXTERNAL_STORAGE)
-            .withListener(object : PermissionListener {
+            .withPermissions(android.Manifest.permission.READ_EXTERNAL_STORAGE, android.Manifest.permission.WRITE_EXTERNAL_STORAGE)
+            .withListener(object : PermissionListener, MultiplePermissionsListener {
                 override fun onPermissionGranted(response: PermissionGrantedResponse) {
                     startActivity(Intent(this@MainActivity, AppMainPage::class.java))
                 }
 
                 override fun onPermissionDenied(response: PermissionDeniedResponse) {
-//                    Snackbar.make(this@MainActivity,window.decorView,"Permission Denied !",Snackbar.LENGTH_SHORT).show();
                 }
 
                 override fun onPermissionRationaleShouldBeShown(
                     permission: PermissionRequest?,
                     token: PermissionToken?
+                ) {
+                }
+
+                override fun onPermissionsChecked(p0: MultiplePermissionsReport?) {
+                }
+
+                override fun onPermissionRationaleShouldBeShown(
+                    p0: MutableList<PermissionRequest>?,
+                    p1: PermissionToken?
                 ) {
                 }
             }).check()

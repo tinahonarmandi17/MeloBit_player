@@ -36,7 +36,7 @@ import kotlinx.coroutines.*
 
 class MusicPlayerService : Service(), Player.Listener {
 
-    private lateinit var songs: ArrayList<Song>
+    private var songs: ArrayList<Song> = ArrayList()
     private var myBinder = MyBinder();
     private lateinit var mediaSessionCompat: MediaSessionCompat
     private val job = SupervisorJob()
