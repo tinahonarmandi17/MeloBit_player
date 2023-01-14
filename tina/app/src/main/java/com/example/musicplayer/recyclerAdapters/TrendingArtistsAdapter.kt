@@ -61,7 +61,7 @@ class TrendingArtistsAdapter(private val activity: Activity) : RecyclerView.Adap
 
 
         artistName.text = artists[position].fullName
-        artistsFollowers.text = artists[position].followersCount.toString()
+        artistsFollowers.text = artists[position].followersCount.toString() + " Followers"
 
 
         Glide

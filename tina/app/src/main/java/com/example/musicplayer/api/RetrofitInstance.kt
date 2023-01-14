@@ -23,5 +23,9 @@ object RetrofitInstance {
         retrofit.create(APIS::class.java)
     }
 
+    val top10Songs : APIS by lazy {
+        retrofit.create(APIS::class.java)
+    }
+
 
 }
