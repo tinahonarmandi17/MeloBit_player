@@ -5,17 +5,11 @@ import android.app.PendingIntent
 import android.app.Service
 import android.content.Intent
 import android.graphics.Bitmap
-import android.graphics.BitmapFactory
 import android.graphics.drawable.Drawable
-import android.media.MediaMetadataRetriever
 import android.os.Binder
 import android.os.IBinder
 import android.support.v4.media.session.MediaSessionCompat
-import android.util.Log
 import androidx.core.app.NotificationCompat
-import androidx.lifecycle.LifecycleOwner
-import androidx.lifecycle.LifecycleRegistry
-import androidx.lifecycle.LifecycleService
 import androidx.lifecycle.MutableLiveData
 import androidx.media.app.NotificationCompat.*
 import com.bumptech.glide.Glide
@@ -24,13 +18,11 @@ import com.bumptech.glide.request.target.CustomTarget
 import com.bumptech.glide.request.transition.Transition
 import com.example.musicplayer.R
 import com.example.musicplayer.activitys.MusicPlayingActivity
-import com.example.musicplayer.mvvm.model.Song
+import com.example.musicplayer.models.Song
 import com.example.musicplayer.services.notification.NotificationReceiver
 import com.google.android.exoplayer2.ExoPlayer
 import com.google.android.exoplayer2.MediaItem
-import com.google.android.exoplayer2.MediaMetadata
 import com.google.android.exoplayer2.Player
-import com.google.android.exoplayer2.offline.DownloadService.startForeground
 import kotlinx.coroutines.*
 
 

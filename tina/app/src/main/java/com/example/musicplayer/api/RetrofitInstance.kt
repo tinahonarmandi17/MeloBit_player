@@ -28,4 +28,15 @@ object RetrofitInstance {
     }
 
 
+    val searchQuery : APIS by lazy {
+        retrofit.create(APIS::class.java)
+    }
+
+    val songDetailApi : APIS by lazy {
+        retrofit.create(APIS::class.java)
+    }
+    val artistSongsApi : APIS by lazy {
+        retrofit.create(APIS::class.java)
+    }
+
 }

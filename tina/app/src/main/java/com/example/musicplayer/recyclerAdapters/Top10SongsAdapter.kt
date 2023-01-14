@@ -2,6 +2,7 @@ package com.example.musicplayer.recyclerAdapters
 
 import android.annotation.SuppressLint
 import android.app.Activity
+import android.content.Intent
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -11,18 +12,17 @@ import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.engine.DiskCacheStrategy
 import com.example.musicplayer.R
+import com.example.musicplayer.activitys.SongInfoActivity
 import com.example.musicplayer.api.RetrofitInstance
-import com.example.musicplayer.mvvm.model.top10songs.Result
-import com.example.musicplayer.mvvm.model.top10songs.Top10songs
+import com.example.musicplayer.models.top10songs.Result
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
-import org.w3c.dom.Text
 
 class Top10SongsAdapter(private val activity: Activity) :
     RecyclerView.Adapter<Top10SongsAdapter.ViewHolder>() {
 
 
-    private var top10songs = ArrayList<Result>()
+    private var songs = ArrayList<Result>()
 
 
     class ViewHolder(view: View) : RecyclerView.ViewHolder(view) {
@@ -30,6 +30,7 @@ class Top10SongsAdapter(private val activity: Activity) :
         val titleTextView : TextView = view.findViewById(R.id.textView5)
         val artistTextview : TextView = view.findViewById(R.id.textView7)
         val downloadCount : TextView = view.findViewById(R.id.textView8)
+        val root : ViewGroup = view.findViewById(R.id.song_root)
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
@@ -53,25 +54,30 @@ class Top10SongsAdapter(private val activity: Activity) :
         val downloadCount : TextView = holder.downloadCount
 
 
-        titleTextView.text = top10songs[position].title
-        artistTextview.text = top10songs[position].artists[0].fullName
-        downloadCount.text = top10songs[position].downloadCount + " Downloads"
+        titleTextView.text = songs[position].title
+        artistTextview.text = songs[position].artists[0].fullName
+        downloadCount.text = songs[position].downloadCount + " Downloads"
 
 
         Glide
             .with(activity)
-            .load(top10songs[position].image.cover.url)
+            .load(songs[position].image.cover.url)
             .diskCacheStrategy(DiskCacheStrategy.ALL)
             .into(imageView)
+
+        holder.root.setOnClickListener {
+            activity.startActivity(Intent(activity,SongInfoActivity::class.java))
+            SongInfoActivity.songID = songs[position].id
+        }
     }
 
     override fun getItemCount(): Int {
-        return top10songs.size - 1
+        return songs.size - 1
     }
 
     @SuppressLint("NotifyDataSetChanged")
     private fun setData(result: ArrayList<Result>) {
-        this.top10songs = result
+        this.songs = result
         activity.runOnUiThread {
             notifyDataSetChanged()
         }

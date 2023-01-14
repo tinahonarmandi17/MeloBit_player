@@ -9,11 +9,12 @@ import androidx.lifecycle.MutableLiveData
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.musicplayer.R
-import com.example.musicplayer.mvvm.model.latesSongs.LatestSong
-import com.example.musicplayer.recyclerAdapters.LatestSongsAdapter
-import com.example.musicplayer.recyclerAdapters.Top10SongsAdapter
-import com.example.musicplayer.recyclerAdapters.Top50WeekSongsAdapter
-import com.example.musicplayer.recyclerAdapters.TrendingArtistsAdapter
+import com.example.musicplayer.api.RetrofitInstance
+import com.example.musicplayer.models.latesSongs.LatestSong
+import com.example.musicplayer.models.searchQuery.Song
+import com.example.musicplayer.recyclerAdapters.*
+import kotlinx.coroutines.GlobalScope
+import kotlinx.coroutines.launch
 
 
 class OnlinePlayListFragment : Fragment() {
@@ -50,6 +51,8 @@ class OnlinePlayListFragment : Fragment() {
 
         latestPlayListRecyclerView.adapter = LatestSongsAdapter(requireActivity())
         latestPlayListRecyclerView.layoutManager = LinearLayoutManager(requireContext(),LinearLayoutManager.HORIZONTAL,false)
+
+
 
 
         trendingArtistRecyclerView.adapter = TrendingArtistsAdapter(requireActivity())

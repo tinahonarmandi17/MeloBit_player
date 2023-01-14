@@ -11,8 +11,6 @@ import android.widget.Button
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.example.musicplayer.R
-import com.example.musicplayer.splash.AppMainPage
-import com.example.musicplayer.states.States
 import com.karumi.dexter.Dexter
 import com.karumi.dexter.MultiplePermissionsReport
 import com.karumi.dexter.PermissionToken

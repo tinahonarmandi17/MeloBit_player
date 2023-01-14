@@ -2,6 +2,7 @@ package com.example.musicplayer.recyclerAdapters
 
 import android.annotation.SuppressLint
 import android.app.Activity
+import android.content.Intent
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -11,10 +12,10 @@ import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.engine.DiskCacheStrategy
 import com.example.musicplayer.R
+import com.example.musicplayer.activitys.SongInfoActivity
 import com.example.musicplayer.api.RetrofitInstance
-import com.example.musicplayer.mvvm.model.latesSongs.ArtistX
-import com.example.musicplayer.mvvm.model.latesSongs.LatestSong
-import com.example.musicplayer.utils.FileDownloader
+import com.example.musicplayer.models.latesSongs.ArtistX
+import com.example.musicplayer.models.latesSongs.Result
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
 
@@ -23,7 +24,7 @@ class LatestSongsAdapter(
 ) :
     RecyclerView.Adapter<LatestSongsAdapter.ViewHolder>() {
 
-    private var latestSong: LatestSong? = null;
+    private var songs = ArrayList<Result>()
     private val TAG = "RETRO"
 
     class ViewHolder(view: View) : RecyclerView.ViewHolder(view) {
@@ -36,7 +37,7 @@ class LatestSongsAdapter(
 
     init {
         GlobalScope.launch {
-            setData(RetrofitInstance.latestSongsApi.getLatestSongs())
+            setData(RetrofitInstance.latestSongsApi.getLatestSongs().results)
         }
     }
 
@@ -55,10 +56,11 @@ class LatestSongsAdapter(
 
 
 
+
         // data
-        val imageUri = latestSong?.results?.get(position)?.image?.cover?.url
-        val trackTitle = latestSong?.results?.get(position)?.title
-        val artists = latestSong?.results?.get(position)?.artists
+        val imageUri = songs.get(position)?.image?.cover?.url
+        val trackTitle = songs.get(position)?.title
+        val artists = songs.get(position)?.artists
 
 
 
@@ -72,7 +74,7 @@ class LatestSongsAdapter(
         }
 
         nameTextView.text =  trackTitle
-        downloadCountTextView.text = latestSong?.results?.get(position)?.downloadCount
+        downloadCountTextView.text = songs.get(position)?.downloadCount
 
 
         Glide
@@ -82,25 +84,21 @@ class LatestSongsAdapter(
             .into(image)
 
         root.setOnClickListener {
-            FileDownloader.setInitContext(activity)
-            val downloadUri = latestSong!!.results[position].audio.high.url
-            val fileName = latestSong!!.results[position].title
-            FileDownloader.download(downloadUri,fileName , ".mp3")
+
+
+            activity.startActivity(Intent(activity,SongInfoActivity::class.java))
+            SongInfoActivity.songID = songs[position].id
         }
 
     }
 
     override fun getItemCount(): Int {
-        return if (latestSong == null) {
-            0
-        } else {
-            latestSong!!.results.size
-        }
+       return  songs.size-1
     }
 
     @SuppressLint("NotifyDataSetChanged")
-    fun setData(latestSong: LatestSong) {
-        this.latestSong = latestSong
+    fun setData(songs: List<Result>) {
+        this.songs = songs as ArrayList<Result>
         activity.runOnUiThread {
             notifyDataSetChanged()
         }

@@ -8,38 +8,31 @@ import android.content.ServiceConnection
 import android.os.Build
 import android.os.Bundle
 import android.os.IBinder
-import android.util.Log
-import android.view.MotionEvent
 import android.view.View
 import android.widget.ImageButton
 import android.widget.ImageView
 import android.widget.TextView
-import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.lifecycleScope
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.engine.DiskCacheStrategy
-import com.bumptech.glide.request.RequestOptions
 import com.daimajia.androidanimations.library.Techniques
 import com.daimajia.androidanimations.library.YoYo
 import com.example.musicplayer.R.*
 import com.example.musicplayer.animation.DoAnimation
-import com.example.musicplayer.mvvm.model.Song
+import com.example.musicplayer.models.Song
 import com.example.musicplayer.services.MusicPlayerService
 import com.masoudss.lib.SeekBarOnProgressChanged
 import com.masoudss.lib.WaveformSeekBar
 import com.masoudss.lib.utils.WaveGravity
 import info.abdolahi.CircularMusicProgressBar
-import jp.wasabeef.glide.transformations.BlurTransformation
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
-import java.time.Instant
 import kotlin.math.ceil
 import kotlin.math.floor
-import kotlin.time.Duration
 
 
 class MusicPlayingActivity :

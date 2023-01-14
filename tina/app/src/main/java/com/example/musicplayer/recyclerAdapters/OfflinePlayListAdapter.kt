@@ -13,7 +13,7 @@ import com.bumptech.glide.Glide
 import com.bumptech.glide.load.engine.DiskCacheStrategy
 import com.example.musicplayer.R
 import com.example.musicplayer.activitys.MusicPlayingActivity
-import com.example.musicplayer.mvvm.model.Song
+import com.example.musicplayer.models.Song
 import com.example.musicplayer.services.MusicPlayerService
 
 
