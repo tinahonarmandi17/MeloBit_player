@@ -1,12 +1,18 @@
 
 package com.example.musicplayer.activitys
 
+import android.app.DownloadManager
+import android.content.BroadcastReceiver
+import android.content.Context
 import android.content.Intent
+import android.content.IntentFilter
 import android.os.Bundle
 import android.widget.Button
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.example.musicplayer.R
 import com.example.musicplayer.splash.AppMainPage
+import com.example.musicplayer.states.States
 import com.karumi.dexter.Dexter
 import com.karumi.dexter.MultiplePermissionsReport
 import com.karumi.dexter.PermissionToken
@@ -27,6 +33,7 @@ companion object {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
+        registerReceiver(onDownloadComplete, IntentFilter(DownloadManager.ACTION_DOWNLOAD_COMPLETE))
         supportActionBar?.hide();
         val goInsideButton : Button = findViewById(R.id.inside)
 
@@ -64,5 +71,12 @@ companion object {
             startActivity(Intent(this@MainActivity, AppMainPage::class.java))
         }
 
+    }
+
+    private val onDownloadComplete: BroadcastReceiver = object : BroadcastReceiver() {
+        override fun onReceive(context: Context, intent: Intent) {
+            Toast.makeText(this@MainActivity, " Download Completed !", Toast.LENGTH_SHORT).show()
+            Toast.makeText(this@MainActivity, " Check Local PlayList !", Toast.LENGTH_SHORT).show()
+        }
     }
 }

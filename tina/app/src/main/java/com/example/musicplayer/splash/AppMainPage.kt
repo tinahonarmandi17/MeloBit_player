@@ -42,6 +42,7 @@ class AppMainPage : AppCompatActivity() {
         viewPagerAdapter.addFragment(localPlayListFragment)
         viewPagerAdapter.addFragment(onlinePlayListFragment)
         viewPager2.adapter = viewPagerAdapter
+        viewPager2.isUserInputEnabled = false ;
 
         viewPager2.registerOnPageChangeCallback(object : ViewPager2.OnPageChangeCallback() {
             override fun onPageScrollStateChanged(state: Int) {}

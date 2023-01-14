@@ -14,8 +14,14 @@ object RetrofitInstance {
 
 
 
-    val latestSongsApi : LatestSongs by lazy {
-        retrofit.create(LatestSongs::class.java)
+    val latestSongsApi : APIS by lazy {
+        retrofit.create(APIS::class.java)
     }
+
+
+    val trendingArtistsApi : APIS by  lazy {
+        retrofit.create(APIS::class.java)
+    }
+
 
 }

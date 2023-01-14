@@ -1,6 +1,7 @@
 package com.example.musicplayer.recyclerAdapters
 
-import android.content.Context
+import android.annotation.SuppressLint
+import android.app.Activity
 import android.content.Intent
 import android.view.LayoutInflater
 import android.view.View
@@ -16,9 +17,11 @@ import com.example.musicplayer.mvvm.model.Song
 import com.example.musicplayer.services.MusicPlayerService
 
 
-class OfflinePlayListAdapter(private val songs: ArrayList<Song>, private val context: Context) :
+class OfflinePlayListAdapter(private val activity: Activity) :
     RecyclerView.Adapter<OfflinePlayListAdapter.ViewHolder>() {
 
+
+    private var songs: ArrayList<Song> = ArrayList() ;
     val TAG = "songs"
 
     class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
@@ -30,7 +33,7 @@ class OfflinePlayListAdapter(private val songs: ArrayList<Song>, private val con
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         val view =
-            LayoutInflater.from(context).inflate(R.layout.playlist_recycler_adapter, parent, false);
+            LayoutInflater.from(activity).inflate(R.layout.playlist_recycler_adapter, parent, false);
         return ViewHolder(view);
     }
 
@@ -38,15 +41,15 @@ class OfflinePlayListAdapter(private val songs: ArrayList<Song>, private val con
         holder.titleText.text = songs[position].title;
         holder.artistText.text = songs[position].artist
         holder.playListRoot.setOnClickListener {
-            Intent(context,MusicPlayingActivity::class.java).also {
+            Intent(activity,MusicPlayingActivity::class.java).also {
                 intent ->
                 MusicPlayerService._songs.value = songs
                 MusicPlayerService._currentPlayingIndex.value = position
-                context.startActivity(intent)
+                activity.startActivity(intent)
             }
         }
         Glide
-            .with(context)
+            .with(activity)
             .load(songs[position].albumArt)
             .centerCrop()
             .diskCacheStrategy(DiskCacheStrategy.ALL)
@@ -59,4 +62,19 @@ class OfflinePlayListAdapter(private val songs: ArrayList<Song>, private val con
     override fun getItemCount(): Int {
         return songs.size;
     }
+
+
+    @SuppressLint("NotifyDataSetChanged")
+    fun setSongs (songs : ArrayList<Song>) {
+        this.songs = songs
+        activity.runOnUiThread {
+            notifyDataSetChanged()
+        }
+    }
+
+    fun getSongs () : ArrayList<Song> {
+        return songs
+    }
+
+
 }

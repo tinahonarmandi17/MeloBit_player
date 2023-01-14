@@ -2,8 +2,6 @@ package com.example.musicplayer.recyclerAdapters
 
 import android.annotation.SuppressLint
 import android.app.Activity
-import android.content.Intent
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -13,12 +11,9 @@ import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.engine.DiskCacheStrategy
 import com.example.musicplayer.R
-import com.example.musicplayer.activitys.MusicPlayingActivity
 import com.example.musicplayer.api.RetrofitInstance
-import com.example.musicplayer.mvvm.model.Song
 import com.example.musicplayer.mvvm.model.latesSongs.ArtistX
 import com.example.musicplayer.mvvm.model.latesSongs.LatestSong
-import com.example.musicplayer.services.MusicPlayerService
 import com.example.musicplayer.utils.FileDownloader
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
@@ -90,7 +85,7 @@ class LatestSongsAdapter(
             FileDownloader.setInitContext(activity)
             val downloadUri = latestSong!!.results[position].audio.high.url
             val fileName = latestSong!!.results[position].title
-            FileDownloader.download(downloadUri,fileName)
+            FileDownloader.download(downloadUri,fileName , ".mp3")
         }
 
     }

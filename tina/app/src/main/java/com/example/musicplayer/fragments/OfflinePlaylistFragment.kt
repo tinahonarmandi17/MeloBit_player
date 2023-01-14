@@ -1,16 +1,28 @@
 package com.example.musicplayer.fragments
 
+import android.app.DownloadManager
+import android.content.BroadcastReceiver
+import android.content.Context
+import android.content.Intent
 import android.os.Bundle
 import android.provider.MediaStore
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
+import androidx.lifecycle.Observer
+import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.musicplayer.recyclerAdapters.OfflinePlayListAdapter
 import com.example.musicplayer.R
 import com.example.musicplayer.mvvm.model.Song
+import com.example.musicplayer.states.States
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.delay
+import kotlinx.coroutines.launch
+import java.lang.Thread.State
 
 
 class OfflinePlaylistFragment : Fragment() {
@@ -34,9 +46,23 @@ class OfflinePlaylistFragment : Fragment() {
 
     private fun setOfflinePlayList() {
         val playListRecycler: RecyclerView = requireView().findViewById(R.id.local_playlist);
-        playListRecycler.adapter = OfflinePlayListAdapter(findAllSongs(), requireContext());
+        val adapter = OfflinePlayListAdapter(requireActivity());
+        playListRecycler.adapter = adapter
         playListRecycler.layoutManager =
             GridLayoutManager(requireContext(), 1, GridLayoutManager.VERTICAL, false);
+
+
+        viewLifecycleOwner.lifecycleScope.launch(Dispatchers.IO) {
+            while (true) {
+                delay(1000)
+                val songs = findAllSongs();
+                if (adapter.getSongs().size != songs.size) {
+                    adapter.setSongs(songs)
+                }
+            }
+        }
+
+
     }
 
     private fun findAllSongs(): ArrayList<Song> {
