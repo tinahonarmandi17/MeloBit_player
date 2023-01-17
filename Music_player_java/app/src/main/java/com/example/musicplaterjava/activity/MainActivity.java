@@ -1,4 +1,4 @@
-package com.example.musicplaterjava;
+package com.example.musicplaterjava.activity;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -7,6 +7,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 
+import com.example.musicplaterjava.R;
 import com.example.musicplaterjava.activity.AppMainPage;
 import com.karumi.dexter.Dexter;
 import com.karumi.dexter.MultiplePermissionsReport;
@@ -26,7 +27,6 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        getSupportActionBar().hide();
         goInside = findViewById(R.id.inside);
         goInside.setOnClickListener(v -> {
             startActivity(new Intent(this, AppMainPage.class));

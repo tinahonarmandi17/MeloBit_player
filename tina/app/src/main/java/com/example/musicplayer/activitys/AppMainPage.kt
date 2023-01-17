@@ -23,7 +23,6 @@ class AppMainPage : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_applcation)
-
         bindViews();
         setViewPager();
         setTabLayout()
