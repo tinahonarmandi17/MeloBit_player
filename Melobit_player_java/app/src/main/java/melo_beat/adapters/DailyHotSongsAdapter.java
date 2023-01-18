@@ -1,6 +1,5 @@
 package melo_beat.adapters;
 
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -14,8 +13,8 @@ import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.example.myapplication.R;
 
-import melo_beat.models.HotDailySongs;
-import melo_beat.models.ResultsItem;
+import melo_beat.models.hotDailySongs.HotDailySongs;
+import melo_beat.models.hotDailySongs.ResultsItem;
 import melo_beat.retrofit.RetrofitClient;
 
 import java.util.ArrayList;

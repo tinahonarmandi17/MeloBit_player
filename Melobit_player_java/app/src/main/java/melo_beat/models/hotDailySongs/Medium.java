@@ -1,6 +1,6 @@
-package melo_beat.models;
+package melo_beat.models.hotDailySongs;
 
-public class High{
+public class Medium{
 	private String fingerprint;
 	private String url;
 

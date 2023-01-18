@@ -1,6 +1,6 @@
-package melo_beat.models;
+package melo_beat.models.hotDailySongs;
 
-public class Thumbnail{
+public class Cover{
 	private String url;
 
 	public void setUrl(String url){

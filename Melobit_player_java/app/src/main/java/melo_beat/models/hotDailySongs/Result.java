@@ -1,4 +1,4 @@
-package melo_beat.models;
+package melo_beat.models.hotDailySongs;
 
 import java.util.List;
 

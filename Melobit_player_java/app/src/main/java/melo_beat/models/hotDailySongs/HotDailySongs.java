@@ -1,4 +1,4 @@
-package melo_beat.models;
+package melo_beat.models.hotDailySongs;
 
 public class HotDailySongs{
 	private Result result;

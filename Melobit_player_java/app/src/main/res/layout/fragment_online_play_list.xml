@@ -67,6 +67,7 @@
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/textView6"
+                    tools:listitem="@layout/song"
                     tools:itemCount="1" />
 
             </androidx.constraintlayout.widget.ConstraintLayout>

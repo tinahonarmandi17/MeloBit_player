@@ -1,11 +1,7 @@
-package melo_beat.models;
+package melo_beat.models.hotArtists;
 
 public class Cover{
 	private String url;
-
-	public void setUrl(String url){
-		this.url = url;
-	}
 
 	public String getUrl(){
 		return url;
