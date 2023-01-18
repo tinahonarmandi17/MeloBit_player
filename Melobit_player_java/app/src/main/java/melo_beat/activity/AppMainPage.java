@@ -1,4 +1,4 @@
-package com.example.myapplication.activity;
+package melo_beat.activity;
 
 import android.os.Bundle;
 
@@ -7,9 +7,9 @@ import androidx.viewpager2.widget.ViewPager2;
 
 
 import com.example.myapplication.R;
-import com.example.myapplication.fragments.OnlinePlayListFragment;
-import com.example.myapplication.fragments.SearchQueryFragment;
-import com.example.myapplication.viewPagers.ViewPagerAdapter;
+import melo_beat.fragments.OnlinePlayListFragment;
+import melo_beat.fragments.SearchQueryFragment;
+import melo_beat.viewPagers.ViewPagerAdapter;
 import com.google.android.material.tabs.TabLayout;
 
 public class AppMainPage extends AppCompatActivity {

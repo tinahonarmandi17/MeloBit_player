@@ -1,4 +1,4 @@
-package com.example.myapplication.activity;
+package melo_beat.activity;
 
 import android.content.Intent;
 import android.os.Bundle;

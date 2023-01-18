@@ -1,4 +1,4 @@
-package com.example.myapplication.viewPagers;
+package melo_beat.viewPagers;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;

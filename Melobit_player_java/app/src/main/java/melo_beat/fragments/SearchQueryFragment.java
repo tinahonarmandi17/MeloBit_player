@@ -1,4 +1,4 @@
-package com.example.myapplication.fragments;
+package melo_beat.fragments;
 
 import android.os.Bundle;
 import android.view.LayoutInflater;
