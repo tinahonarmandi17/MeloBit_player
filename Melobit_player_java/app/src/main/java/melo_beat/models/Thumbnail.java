@@ -1,6 +1,6 @@
-package melo_beat.models.hotArtists;
+package melo_beat.models;
 
-public class ThumbnailSmall{
+public class Thumbnail{
 	private String url;
 
 	public String getUrl(){

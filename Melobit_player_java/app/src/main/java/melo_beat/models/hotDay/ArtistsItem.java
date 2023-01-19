@@ -1,6 +1,6 @@
-package melo_beat.models.hotArtists;
+package melo_beat.models.hotDay;
 
-public class ResultsItem{
+public class ArtistsItem{
 	private Image image;
 	private String fullName;
 	private String sumSongsDownloadsCount;

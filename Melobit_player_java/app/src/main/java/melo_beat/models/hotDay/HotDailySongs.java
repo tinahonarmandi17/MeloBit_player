@@ -1,6 +1,6 @@
-package melo_beat.models.hotArtists;
+package melo_beat.models.hotDay;
 
-public class HotArtists{
+public class HotDailySongs {
 	private Result result;
 	private int status;
 

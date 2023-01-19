@@ -1,10 +1,11 @@
-package melo_beat.models.hotArtists;
+package melo_beat.models.hotDay;
 
 public class Image{
 	private ThumbnailSmall thumbnailSmall;
 	private Cover cover;
 	private Thumbnail thumbnail;
 	private CoverSmall coverSmall;
+	private Slider slider;
 
 	public ThumbnailSmall getThumbnailSmall(){
 		return thumbnailSmall;
@@ -20,5 +21,9 @@ public class Image{
 
 	public CoverSmall getCoverSmall(){
 		return coverSmall;
+	}
+
+	public Slider getSlider(){
+		return slider;
 	}
 }

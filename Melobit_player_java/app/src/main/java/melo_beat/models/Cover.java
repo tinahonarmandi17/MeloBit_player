@@ -1,4 +1,4 @@
-package melo_beat.models.hotArtists;
+package melo_beat.models;
 
 public class Cover{
 	private String url;

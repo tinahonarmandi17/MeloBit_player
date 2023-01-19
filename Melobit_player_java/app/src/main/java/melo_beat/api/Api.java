@@ -1,20 +1,17 @@
 package melo_beat.api;
 
-import melo_beat.models.hotDailySongs.HotDailySongs;
+import melo_beat.models.hotDay.HotDailySongs;
 import retrofit2.Call;
 import retrofit2.http.GET;
 
 public interface Api {
 
 
-    public static  String TOKEN = "800757:63b9cfac0e5de5.12700535";
-    public static String BASE_URL = "http://one-api.ir/melobit/?token="+TOKEN;
+    public String TOKEN = "?token=800757:63b9cfac0e5de5.12700535";
+    public String BASE_URL = "https://one-api.ir/melobit/" ;
 
-
-    @GET(BASE_URL + "&action=hot_day")
+    @GET(TOKEN+ "&action=hot_day")
     Call<HotDailySongs> getHotDailySongs();
-
-
 
 
 }

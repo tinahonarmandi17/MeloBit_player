@@ -1,4 +1,4 @@
-package melo_beat.models.hotDailySongs;
+package melo_beat.models.hotDay;
 
 import java.util.List;
 
@@ -9,40 +9,20 @@ public class Album{
 	private String name;
 	private String id;
 
-	public void setImage(Image image){
-		this.image = image;
-	}
-
 	public Image getImage(){
 		return image;
-	}
-
-	public void setArtists(List<ArtistsItem> artists){
-		this.artists = artists;
 	}
 
 	public List<ArtistsItem> getArtists(){
 		return artists;
 	}
 
-	public void setReleaseDate(String releaseDate){
-		this.releaseDate = releaseDate;
-	}
-
 	public String getReleaseDate(){
 		return releaseDate;
 	}
 
-	public void setName(String name){
-		this.name = name;
-	}
-
 	public String getName(){
 		return name;
-	}
-
-	public void setId(String id){
-		this.id = id;
 	}
 
 	public String getId(){

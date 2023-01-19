@@ -1,6 +1,6 @@
-package melo_beat.models.hotArtists;
+package melo_beat.models.hotDay;
 
-public class CoverSmall{
+public class Cover{
 	private String url;
 
 	public String getUrl(){

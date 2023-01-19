@@ -1,5 +1,7 @@
 package melo_beat.adapters;
 
+import android.annotation.SuppressLint;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -13,8 +15,8 @@ import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.example.myapplication.R;
 
-import melo_beat.models.hotDailySongs.HotDailySongs;
-import melo_beat.models.hotDailySongs.ResultsItem;
+import melo_beat.models.hotDay.HotDailySongs;
+import melo_beat.models.hotDay.ResultsItem;
 import melo_beat.retrofit.RetrofitClient;
 
 import java.util.ArrayList;
@@ -31,8 +33,9 @@ public class DailyHotSongsAdapter extends RecyclerView.Adapter<DailyHotSongsAdap
     public void onAttachedToRecyclerView(@NonNull RecyclerView recyclerView) {
         super.onAttachedToRecyclerView(recyclerView);
         RetrofitClient.getInstance().getMyApi().getHotDailySongs().enqueue(new Callback<HotDailySongs>() {
+            @SuppressLint("NotifyDataSetChanged")
             @Override
-            public void onResponse(Call<HotDailySongs> call, Response<HotDailySongs> response) {
+            public void onResponse(@NonNull Call<HotDailySongs> call, @NonNull Response<HotDailySongs> response) {
                 songs = (ArrayList<ResultsItem>) response.body().getResult().getResults();
                 notifyDataSetChanged();
             }
@@ -40,10 +43,9 @@ public class DailyHotSongsAdapter extends RecyclerView.Adapter<DailyHotSongsAdap
             public void onFailure(Call<HotDailySongs> call, Throwable t) {
             }
         });
-
-
     }
 
+    @NonNull
     @Override
     public DailyHotSongsAdapter.ViewHolder onCreateViewHolder( ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.song,parent,false);
