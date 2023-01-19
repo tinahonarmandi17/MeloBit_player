@@ -1,5 +1,6 @@
 package melo_beat.adapters;
 
+import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -16,52 +17,44 @@ import com.example.myapplication.R;
 import java.util.ArrayList;
 import java.util.List;
 
-import melo_beat.models.ArtistSongs.ArtistsSongs;
-import melo_beat.models.ArtistSongs.ResultsItem;
+import melo_beat.activity.SongActivity;
+import melo_beat.activity.TopSongsOfWeek;
+import melo_beat.models.HotSongsOfweek.HotSongsOfWeek;
+import melo_beat.models.HotSongsOfweek.ResultsItem;
 import melo_beat.retrofit.RetrofitClient;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-public class ArtistSongsAdapter  extends RecyclerView.Adapter<ArtistSongsAdapter.ViewHolder> {
+public class TopSongsOfWeekAdapter extends RecyclerView.Adapter<TopSongsOfWeekAdapter.ViewHolder> {
 
-
-
-
-    private String artistID ;
-    private List<ResultsItem> songs = new ArrayList<>();
-
-
-    public ArtistSongsAdapter(String artistID) {
-        this.artistID = artistID;
-    }
-
+    ArrayList<ResultsItem> songs =new ArrayList();
 
     @Override
     public void onAttachedToRecyclerView(@NonNull RecyclerView recyclerView) {
         super.onAttachedToRecyclerView(recyclerView);
-        RetrofitClient.getInstance().getMyApi().getArtistSongs(artistID).enqueue(new Callback<ArtistsSongs>() {
+        RetrofitClient.getInstance().getMyApi().getTopSongsOfWeek().enqueue(new Callback<HotSongsOfWeek>() {
             @Override
-            public void onResponse(Call<ArtistsSongs> call, Response<ArtistsSongs> response) {
-                songs = response.body().getResult().getResults();
+            public void onResponse(Call<HotSongsOfWeek> call, Response<HotSongsOfWeek> response) {
+                songs = (ArrayList<ResultsItem>) response.body().getResult().getResults();
                 notifyDataSetChanged();
             }
 
             @Override
-            public void onFailure(Call<ArtistsSongs> call, Throwable t) {
+            public void onFailure(Call<HotSongsOfWeek> call, Throwable t) {
 
             }
         });
     }
 
     @Override
-    public ArtistSongsAdapter.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+    public TopSongsOfWeekAdapter.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.song,parent,false);
-        return new ViewHolder(view);
+        return  new ViewHolder(view);
     }
 
     @Override
-    public void onBindViewHolder(@NonNull ArtistSongsAdapter.ViewHolder holder, int position) {
+    public void onBindViewHolder(@NonNull TopSongsOfWeekAdapter.ViewHolder holder, int position) {
         ResultsItem song = songs.get(position);
         Glide.with(holder.itemView)
                 .load(song.getImage().getCover().getUrl())
@@ -73,7 +66,14 @@ public class ArtistSongsAdapter  extends RecyclerView.Adapter<ArtistSongsAdapter
         holder.downloads.setText(song.getDownloadCount());
 
 
-
+        holder.root.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(v.getContext(), SongActivity.class);
+                intent.putExtra("SongID", song.getId());
+                v.getContext().startActivity(intent);
+            }
+        });
     }
 
     @Override
@@ -81,17 +81,20 @@ public class ArtistSongsAdapter  extends RecyclerView.Adapter<ArtistSongsAdapter
         return songs.size();
     }
 
-    public class ViewHolder extends RecyclerView.ViewHolder {
-        ImageView imageView ;
-        TextView title ;
-        TextView artists ;
-        TextView downloads ;
-        public ViewHolder( View itemView) {
+    public static class ViewHolder extends RecyclerView.ViewHolder {
+        ImageView imageView;
+        TextView title;
+        TextView artists;
+        TextView downloads;
+        ViewGroup root;
+
+        public ViewHolder(View itemView) {
             super(itemView);
             imageView = itemView.findViewById(R.id.imageView3);
             title = itemView.findViewById(R.id.textView5);
             artists = itemView.findViewById(R.id.textView7);
             downloads = itemView.findViewById(R.id.textView8);
+            root = itemView.findViewById(R.id.song_root);
         }
     }
 }

@@ -1,6 +1,7 @@
 package melo_beat.adapters;
 
 import android.annotation.SuppressLint;
+import android.content.Intent;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -15,6 +16,7 @@ import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.example.myapplication.R;
 
+import melo_beat.activity.SongActivity;
 import melo_beat.models.hotDay.HotDailySongs;
 import melo_beat.models.hotDay.ResultsItem;
 import melo_beat.retrofit.RetrofitClient;
@@ -63,6 +65,17 @@ public class DailyHotSongsAdapter extends RecyclerView.Adapter<DailyHotSongsAdap
         holder.title.setText(song.getTitle());
         holder.artists.setText(song.getArtists().get(0).getFullName());
         holder.downloads.setText(song.getDownloadCount());
+
+
+        holder.root.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(v.getContext(), SongActivity.class);
+                intent.putExtra("SongID" , song.getId());
+                v.getContext().startActivity(intent);
+            }
+        });
+
     }
 
     @Override
@@ -75,12 +88,14 @@ public class DailyHotSongsAdapter extends RecyclerView.Adapter<DailyHotSongsAdap
         TextView title ;
         TextView artists ;
         TextView downloads ;
+        ViewGroup root ;
         public ViewHolder( View itemView) {
             super(itemView);
             imageView = itemView.findViewById(R.id.imageView3);
             title = itemView.findViewById(R.id.textView5);
             artists = itemView.findViewById(R.id.textView7);
             downloads = itemView.findViewById(R.id.textView8);
+            root = itemView.findViewById(R.id.song_root);
         }
     }
 }

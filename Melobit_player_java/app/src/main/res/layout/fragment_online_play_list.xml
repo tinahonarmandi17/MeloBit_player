@@ -109,7 +109,7 @@
                     android:layout_height="150dp"
                     android:background="@drawable/back"
                     android:gravity="center"
-                    android:text="New Alboums"
+                    android:text="TOP SONGS OF WEEK"
                     android:textColor="@color/black"
                     android:textSize="24sp"
                     app:layout_constraintEnd_toEndOf="parent"
