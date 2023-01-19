@@ -1,6 +1,7 @@
 package melo_beat.adapters;
 
 import android.annotation.SuppressLint;
+import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -16,6 +17,7 @@ import com.example.myapplication.R;
 
 import java.util.ArrayList;
 
+import melo_beat.activity.ArtistActivity;
 import melo_beat.models.TrendingArtists.HotArtists;
 import melo_beat.retrofit.RetrofitClient;
 import retrofit2.Call;
@@ -64,11 +66,16 @@ public class TrendingArtistsAdapter extends RecyclerView.Adapter<TrendingArtists
                 .diskCacheStrategy(DiskCacheStrategy.ALL)
                 .into(holder.image);
         holder.name.setText(artist.getFullName());
-        try {
-            holder.totalFollower.setText(artist.getSumSongsDownloadsCount() + " Downloads ");
-        } catch (Exception ignored) {
+        holder.totalFollower.setText(artist.getSumSongsDownloadsCount() + " Downloads ");
 
-        }
+        holder.root.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(holder.root.getContext(), ArtistActivity.class);
+                intent.putExtra("ArtistID",artist.getId());
+                holder.root.getContext().startActivity(intent);
+            }
+        });
 
 
     }
@@ -82,6 +89,7 @@ public class TrendingArtistsAdapter extends RecyclerView.Adapter<TrendingArtists
         ImageView image;
         TextView name;
         TextView totalFollower;
+        ViewGroup root;
 
         public ViewHolder(@NonNull View itemView) {
 
@@ -89,6 +97,7 @@ public class TrendingArtistsAdapter extends RecyclerView.Adapter<TrendingArtists
             image = itemView.findViewById(R.id.imageView4);
             name = itemView.findViewById(R.id.textView9);
             totalFollower = itemView.findViewById(R.id.textView10);
+            root = itemView.findViewById(R.id.artist_root);
         }
     }
 }
