@@ -1,5 +1,6 @@
 package melo_beat.api;
 
+import melo_beat.models.TrendingArtists.HotArtists;
 import melo_beat.models.hotDay.HotDailySongs;
 import retrofit2.Call;
 import retrofit2.http.GET;
@@ -12,6 +13,9 @@ public interface Api {
 
     @GET(TOKEN+ "&action=hot_day")
     Call<HotDailySongs> getHotDailySongs();
+
+    @GET(TOKEN + "&action=hot_artists")
+    Call<HotArtists> getHotArtists();
 
 
 }

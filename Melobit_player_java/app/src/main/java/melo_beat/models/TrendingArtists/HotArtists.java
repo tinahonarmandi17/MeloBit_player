@@ -1,4 +1,4 @@
-package melo_beat.models;
+package melo_beat.models.TrendingArtists;
 
 public class HotArtists{
 	private Result result;

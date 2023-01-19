@@ -1,4 +1,4 @@
-package melo_beat.models;
+package melo_beat.models.TrendingArtists;
 
 public class ResultsItem{
 	private Image image;

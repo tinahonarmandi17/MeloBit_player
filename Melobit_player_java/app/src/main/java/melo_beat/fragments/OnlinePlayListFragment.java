@@ -14,7 +14,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.example.myapplication.R;
 
 import melo_beat.adapters.DailyHotSongsAdapter;
-import melo_beat.adapters.trendingArtistsAdapter;
+import melo_beat.adapters.TrendingArtistsAdapter;
 
 
 public class OnlinePlayListFragment extends Fragment {
@@ -42,7 +42,7 @@ public class OnlinePlayListFragment extends Fragment {
         hotSongsDaily.setLayoutManager(new LinearLayoutManager(requireContext(),LinearLayoutManager.HORIZONTAL,false));
 
 
-        trendingArtists.setAdapter(new trendingArtistsAdapter());
+        trendingArtists.setAdapter(new TrendingArtistsAdapter());
         trendingArtists.setLayoutManager(new LinearLayoutManager(requireContext(),LinearLayoutManager.HORIZONTAL,false));
 
 
