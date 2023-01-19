@@ -1,6 +1,5 @@
-package melo_beat.adapters;
+package melo_beat.adapters.query;
 
-import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -18,48 +17,27 @@ import com.example.myapplication.R;
 import java.util.ArrayList;
 
 import melo_beat.activity.ArtistActivity;
-import melo_beat.models.TrendingArtists.HotArtists;
-import melo_beat.retrofit.RetrofitClient;
-import retrofit2.Call;
-import retrofit2.Callback;
-import retrofit2.Response;
-import melo_beat.models.TrendingArtists.*;
-
-public class TrendingArtistsAdapter extends RecyclerView.Adapter<TrendingArtistsAdapter.ViewHolder> {
+import melo_beat.models.Query.Artist;
+import melo_beat.models.Query.ResultsItem;
 
 
-    private ArrayList<ResultsItem> artists = new ArrayList<>();
+public class QueryArtistsAdapter extends RecyclerView.Adapter<QueryArtistsAdapter.ViewHolder> {
 
 
+
+    ArrayList<ResultsItem> artists ;
+
+    @NonNull
     @Override
-    public void onAttachedToRecyclerView(@NonNull RecyclerView recyclerView) {
-        super.onAttachedToRecyclerView(recyclerView);
-
-        RetrofitClient.getInstance().getMyApi().getHotArtists().enqueue(new Callback<HotArtists>() {
-            @SuppressLint("NotifyDataSetChanged")
-            @Override
-            public void onResponse(@NonNull Call<HotArtists> call, @NonNull Response<HotArtists> response) {
-                artists = (ArrayList<ResultsItem>) response.body().getResult().getResults();
-                notifyDataSetChanged();
-            }
-
-            @Override
-            public void onFailure(Call<HotArtists> call, Throwable t) {
-            }
-        });
-
-    }
-
-    @Override
-    public TrendingArtistsAdapter.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+    public QueryArtistsAdapter.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.artist, parent, false);
         return new ViewHolder(view);
     }
 
     @Override
-    public void onBindViewHolder(@NonNull TrendingArtistsAdapter.ViewHolder holder, int position) {
+    public void onBindViewHolder(@NonNull QueryArtistsAdapter.ViewHolder holder, int position) {
 
-        ResultsItem artist = artists.get(position);
+        Artist artist = artists.get(position).getArtist();
         Glide
                 .with(holder.image)
                 .load(artist.getImage().getCover().getUrl())
@@ -72,20 +50,22 @@ public class TrendingArtistsAdapter extends RecyclerView.Adapter<TrendingArtists
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(holder.root.getContext(), ArtistActivity.class);
-                intent.putExtra("ArtistID",artist.getId());
+                intent.putExtra("ArtistID", artist.getId());
                 holder.root.getContext().startActivity(intent);
             }
         });
-
-
     }
+
+    public  void setArtists (ArrayList<ResultsItem> artists) {
+        this.artists = artists;
+        notifyDataSetChanged();
+    }
+
 
     @Override
     public int getItemCount() {
         return artists.size();
     }
-
-
 
     public class ViewHolder extends RecyclerView.ViewHolder {
         ImageView image;

@@ -1,5 +1,6 @@
 package melo_beat.adapters;
 
+import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -16,6 +17,7 @@ import com.example.myapplication.R;
 import java.util.ArrayList;
 import java.util.List;
 
+import melo_beat.activity.SongActivity;
 import melo_beat.models.ArtistSongs.ArtistsSongs;
 import melo_beat.models.ArtistSongs.ResultsItem;
 import melo_beat.retrofit.RetrofitClient;
@@ -72,6 +74,11 @@ public class ArtistSongsAdapter  extends RecyclerView.Adapter<ArtistSongsAdapter
         holder.artists.setText(song.getArtists().get(0).getFullName());
         holder.downloads.setText(song.getDownloadCount());
 
+        holder.root.setOnClickListener(it -> {
+            Intent intent  = new Intent(it.getContext(), SongActivity.class);
+            intent.putExtra("SongID" , song.getId());
+            it.getContext().startActivity(intent);
+        });
 
 
     }
@@ -86,12 +93,14 @@ public class ArtistSongsAdapter  extends RecyclerView.Adapter<ArtistSongsAdapter
         TextView title ;
         TextView artists ;
         TextView downloads ;
+        ViewGroup root;
         public ViewHolder( View itemView) {
             super(itemView);
             imageView = itemView.findViewById(R.id.imageView3);
             title = itemView.findViewById(R.id.textView5);
             artists = itemView.findViewById(R.id.textView7);
             downloads = itemView.findViewById(R.id.textView8);
+            root = itemView.findViewById(R.id.song_root);
         }
     }
 }
