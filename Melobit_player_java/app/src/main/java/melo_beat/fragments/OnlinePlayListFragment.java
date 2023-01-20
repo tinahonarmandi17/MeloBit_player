@@ -1,9 +1,11 @@
 package melo_beat.fragments;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -13,13 +15,17 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.myapplication.R;
 
+import melo_beat.activity.TopSongsOfWeek;
 import melo_beat.adapters.DailyHotSongsAdapter;
+import melo_beat.adapters.TrendingArtistsAdapter;
 
 
 public class OnlinePlayListFragment extends Fragment {
 
 
-    private RecyclerView recyclerView;
+    private RecyclerView hotSongsDaily;
+    private RecyclerView trendingArtists;
+    private TextView topSongsOfWeek;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -33,12 +39,22 @@ public class OnlinePlayListFragment extends Fragment {
         super.onViewCreated(view, savedInstanceState);
 
 
-        recyclerView = view.findViewById(R.id.hot_songs_playlist);
+        hotSongsDaily = view.findViewById(R.id.hot_songs_playlist);
+        trendingArtists = view.findViewById(R.id.trending_artists_recycler);
+        topSongsOfWeek = view.findViewById(R.id.textView11);
 
-        recyclerView.setAdapter(new DailyHotSongsAdapter());
-        recyclerView.setLayoutManager(new LinearLayoutManager(requireContext(),LinearLayoutManager.HORIZONTAL,false));
+        hotSongsDaily.setAdapter(new DailyHotSongsAdapter());
+        hotSongsDaily.setLayoutManager(new LinearLayoutManager(requireContext(),LinearLayoutManager.HORIZONTAL,false));
 
 
+        trendingArtists.setAdapter(new TrendingArtistsAdapter());
+        trendingArtists.setLayoutManager(new LinearLayoutManager(requireContext(),LinearLayoutManager.HORIZONTAL,false));
+
+
+        topSongsOfWeek.setOnClickListener(v -> {
+            Intent intent = new Intent(getActivity(),TopSongsOfWeek.class );
+            this.startActivity(intent);
+        });
 
 
     }
